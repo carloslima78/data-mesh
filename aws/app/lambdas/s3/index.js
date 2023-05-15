@@ -16,13 +16,21 @@ const S3 = new AWS.S3()
 const SNS = new AWS.SNS()
 
 // O Joi atribuindo os valores do JSON recebido em um schema para a tabela DynamoDB
+
+const produtoSchema = Joi.object({
+    idproduto: Joi.string().required(),
+    nome: Joi.string().required(),
+    valor: Joi.string().required()
+  });
+
 const schema = Joi.object().keys({
     idpedido: Joi.string().required(),
     idcliente: Joi.string().required(),
     nome: Joi.string(),
     email: Joi.string(),
     telefone: Joi.string(),
-    total: Joi.string()
+    total: Joi.string(),
+    produtos: Joi.array().items(produtoSchema)
 })
 
 // Recupera os dados presentes no arquivo no bucket S3

@@ -1,0 +1,41 @@
+[
+    {
+        "idpedido": "11",
+        "idcliente": "1",
+        "nome": "Carlos Lima",
+        "email": "joao.silva@gmail.com",
+        "telefone": "+55 11 99999-9999",
+        "total": "10.000.00",
+        "produtos" : [
+            {
+                "idproduto": "12",
+                "nome": "TV",
+                "valor": "5000.00"
+            },
+            {
+                "idproduto": "13",
+                "nome": "Game",
+                "valor": "5000.00"
+            }
+        ]
+    },
+
+    {
+        "idpedido": "12",
+        "idcliente": "2",
+        "nome": "Kelli Vital Soares",
+        "email": "joao.silva@gmail.com",
+        "telefone": "+55 11 99999-9999",
+        "total": "5000.00",
+        "produtos" : [
+            {
+                "idproduto": "12",
+                "nome": "TV",
+                "valor": "5000.00"
+            }
+        ]
+        
+    }
+]
+
+
