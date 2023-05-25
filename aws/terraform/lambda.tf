@@ -83,7 +83,7 @@ resource "aws_lambda_function" "dynamo" {
   timeout     = 30
   memory_size = 128
 
-  # Passa a tabela DynamoDB como uma variável de ambiente para a função Lambda.
+  # Passa o nome da tabela DynamoDB na variável de ambiente da Lambda para a função Lambda.
   environment {
     variables = {
       TABLE = aws_dynamodb_table.this.name
@@ -97,7 +97,7 @@ resource "aws_lambda_permission" "dynamo" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.dynamo.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_api_gateway_rest_api.this.execution_arn}/*/*"
+  source_arn    = "${aws_api_gateway_rest_api.pedidos-api.execution_arn}/*/*"
 }
 
 # Declara a permissão para que o SNS invoque a função Lambda

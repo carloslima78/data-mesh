@@ -14,11 +14,11 @@ variable "aws_account_id" {
 variable "service_name" {
   type        = string
   description = ""
-  default     = "Todos"
+  default     = "pedidos"
 }
 
 variable "service_domain" {
   type        = string
   description = ""
-  default     = "api-todos-nova"
+  default     = "api-gateway-pedidos"
 }

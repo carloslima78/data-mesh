@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "lambda-assume-role" {
   }
 }
 
-# --------------- S3 Role --------------------
+# S3 Role 
 
 # Data Source para declarar as permissões específicas abaixo:
 data "aws_iam_policy_document" "s3" {
@@ -26,14 +26,6 @@ data "aws_iam_policy_document" "s3" {
       "s3:*",
       "sns:*",
     ]
-  }
-
-  # Permite que Lambda invoque outras Lambdas
-  statement {
-    sid       = "AllowInvokingLambdas"
-    effect    = "Allow"
-    resources = ["arn:aws:lambda:*:*:function:*"]
-    actions   = ["lambda:InvokeFunction"]
   }
 
   # Permite que Lambda crie grupo de logs no AWS CloudWatch
@@ -75,7 +67,7 @@ resource "aws_iam_role_policy_attachment" "s3-execute" {
   role       = aws_iam_role.s3.name
 }
 
-# --------------- Dynamo Role --------------------
+# Dynamo Role 
 
 # Data Source para declarar as permissões específicas abaixo:
 data "aws_iam_policy_document" "dynamo" {
@@ -87,14 +79,6 @@ data "aws_iam_policy_document" "dynamo" {
     resources = ["*"]
 
     actions = ["dynamodb:*"]
-  }
-
-  # Permite que Lambda invoque outras Lambdas
-  statement {
-    sid       = "AllowInvokingLambdas"
-    effect    = "Allow"
-    resources = ["arn:aws:lambda:*:*:function:*"]
-    actions   = ["lambda:InvokeFunction"]
   }
 
   # Permite que Lambda crie grupo de logs no AWS CloudWatch

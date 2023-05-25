@@ -4,7 +4,7 @@ resource "random_pet" "bucket" {}
 
 # Declara o bucket S3
 resource "aws_s3_bucket" "todo" {
-  bucket = "${var.service_domain}-${random_pet.bucket.id}"
+  bucket = "${var.service_name}-${random_pet.bucket.id}"
   tags   = local.common_tags
 
   force_destroy = true

@@ -15,25 +15,33 @@ const S3 = new AWS.S3()
 // Declaração do client SNS
 const SNS = new AWS.SNS()
 
-// O Joi atribuindo os valores do JSON recebido em um schema para a tabela DynamoDB
-
-const produtoSchema = Joi.object({
+// Schema para os itens do pedido
+const itensPedidoSchema = Joi.object({
     idproduto: Joi.string().required(),
     nome: Joi.string().required(),
     valor: Joi.string().required()
   });
 
-const schema = Joi.object().keys({
+  // Schema para o meio de pagamento
+const meioPagamentoSchema = Joi.object({
+    idmeiopagamento: Joi.string().required(),
+    nome: Joi.string().required()
+  });
+
+// Schema para o pedido
+const pedidoSchema = Joi.object().keys({
     idpedido: Joi.string().required(),
     idcliente: Joi.string().required(),
     nome: Joi.string(),
     email: Joi.string(),
     telefone: Joi.string(),
     total: Joi.string(),
-    produtos: Joi.array().items(produtoSchema)
+    produtos: Joi.array().items(itensPedidoSchema),
+    meiopagamento: meioPagamentoSchema,
+    status: Joi.string()
 })
 
-// Recupera os dados presentes no arquivo no bucket S3
+// Recupera o arquivo no bucket S3 
 const getFileContent = async (S3, bucket, filename) => {
     const params = {
         Bucket: bucket,
@@ -46,11 +54,11 @@ const getFileContent = async (S3, bucket, filename) => {
 
 // Verifica se o item é válido utilizando o Schema
 const isItemValid = (data) => {
-    const isValid = schema.validate(data)
+    const isValid = pedidoSchema.validate(data)
     return isValid.error === undefined
 }
 
-// Publica uma mensagem no tópico SNS com os dados presentes no Schema
+// Publica uma mensagem no tópico SNS com os dados presentes no schema do pedido
 const publish = async (SNS, payload) => {
     const { message, subject, topic } = payload
     const params = {

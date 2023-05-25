@@ -11,10 +11,7 @@ locals {
 
   # Tags comuns
   common_tags = {
-    Project   = "TODO Serverless App"
-    CreatedAt = "2023-04-18"
-    ManagedBy = "Terraform"
-    Owner     = "Carlos Fabiano Lima"
-    Service   = var.service_name
+    Projeto   = "Data Mesh - Dominio de Pedidos"
+    Autor     = "Carlos Fabiano Lima"
   }
 }
