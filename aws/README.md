@@ -5,11 +5,11 @@ Trata-se de uma simulação da transmofação e democratização de dados de ped
 
 ## Camada de Source of Truth (SoT)
 
-Camada responsável por armazenar os dados confiáveis, mantendeo a fonte única dos dados.
+Camada responsável por armazenar os dados brutos e confiáveis em um data mesh. Ela mantém a fonte única e autoritativa dos dados.
 
 ## Camada de Specification (Spec)
 
-Camada que define os contratos e especificações dos dados em um data mesh. Ela descreve a estrutura, formato e semântica dos dados.
+Camada que define os contratos e especificações dos dados em um data mesh. Ela descreve a estrutura e o formato dos dados.
 
 ## Camada de Source of Truth (SoR)
 
