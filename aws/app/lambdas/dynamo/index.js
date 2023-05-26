@@ -32,12 +32,12 @@ const normalizeEvent = (event) => {
 exports.handler = async (event) => {
 
     if (process.env.DEBUG) {
-        console.log(`Received event: ${JSON.stringify(event)}`)
+        console.log(`Evento recebido: ${JSON.stringify(event)}`)
     }
 
     const table = event.table || process.env.TABLE
     if (!table) {
-        throw new Error('No table name defined.')
+        throw new Error('Não existe tabela definida.')
     }
 
     const { method, data, querystring } = normalizeEvent(event)
@@ -56,7 +56,7 @@ exports.handler = async (event) => {
                 res = await dynamo.put({ ...params, Item: data }).promise()
                 break;
             default:
-                err = new Error(`Unsupported method "${method}"`)
+                err = new Error(`Método não suportado "${method}"`)
         }
     } catch (error) {
         err = new Error(error.message)

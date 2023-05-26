@@ -69,7 +69,7 @@ const publish = async (SNS, payload) => {
 
     try {
         await SNS.publish(params).promise()
-        console.log(`Message published: ${message}`)
+        console.log(`Mensagem publicada: ${message}`)
         return true
     } catch (error) {
         console.error(error)
@@ -81,13 +81,13 @@ exports.handler = async (event) => {
    
     // Se o debug estíver habilitado, escreve o log do evento
     if (process.env.DEBUG) {
-        console.log(`Received event: ${JSON.stringify(event)}`)
+        console.log(`Evento recebido: ${JSON.stringify(event)}`)
     }
 
     // Verifica se existe um tópico definido e atribui seu ARN para a constante
     const topicArn = event.topicArn || process.env.TOPIC_ARN
     if (!topicArn) {
-        throw new Error('No topic defined.')
+        throw new Error('Não existe um tópico SNS definido.')
     }
 
     // Realiza leitura dos dados presentes no arquivo 
@@ -100,14 +100,18 @@ exports.handler = async (event) => {
 
         // Verifica se cada item no arquivo é válido, retorna falso e loga um erro
         if (!isItemValid(item)) {
-            console.log(`Invalid item found: ${JSON.stringify(item)}`)
+            console.log(`Item inválido no JSON: ${JSON.stringify(item)}`)
             return false
+        }
+        else
+        {
+            console.log(`Evento recebido: ${JSON.stringify(item)}`)
         }
 
         // Publicação mensagem com os dados no tópico SNS
         await publish(SNS, {
             message: JSON.stringify(item),
-            subject: 'Data from S3',
+            subject: 'Pedido carregado no S3',
             topic: topicArn
         })
 
@@ -115,5 +119,5 @@ exports.handler = async (event) => {
     }
 
     // Retorna a quantidade de mensagens que foram publicadas no tópico SNS
-    return `Published ${count} messages to the Topic.`
+    return `Foram publicadas ${count} mensagens no tópico SNS.`
 }
